@@ -22,10 +22,12 @@ def save_cache(cache: dict):
 def validate_postcode(postcode: str) -> bool:
     """Validates a given postcode."""
     if not isinstance(postcode, str):
-        raise TypeError('Postcode must be a string.')
-    else:
-        postcode = postcode.replace(" ", "")
-        return True
+        raise TypeError('Function expects a string.')
+    elif len(postcode) not in range(5, 8):
+        return False
+
+    postcode = postcode.replace(" ", "")
+    return True
 
 
 def get_postcode_for_location(lat: float, long: float) -> str:
@@ -33,6 +35,8 @@ def get_postcode_for_location(lat: float, long: float) -> str:
     Retrieves a postcode nearest to the given coordinates of 
     latitude and longitude.
     """
+    if not isinstance(lat, float) or not isinstance(long, float):
+        raise TypeError("Function expects two floats.")
     url = f"https://api.postcodes.io/postcodes?lon={long}&lat={lat}"
     result = req.get(url, timeout=15)
     data = result.json()['result']
@@ -45,7 +49,7 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
     use, given the starting letters of a postcode.
     """
     if not isinstance(postcode_start, str):
-        raise TypeError('You must enter a string.')
+        raise TypeError('Function expects a string.')
     url = f"https://api.postcodes.io/postcodes/{postcode_start}/autocomplete"
     result = req.get(url, timeout=15)
     data = result.json()['result']
@@ -59,10 +63,10 @@ def get_postcodes_details(postcodes: list[str]) -> dict:
     by details for that given postcode.
     """
     if not isinstance(postcodes, list):
-        raise TypeError("Postcodes must be a list.")
+        raise TypeError("Function expects a list of strings.")
     for postcode in postcodes:
         if not isinstance(postcode, str):
-            raise TypeError("All postcodes must be string.")
+            raise TypeError("Function expects a list of strings.")
     url = f"https://api.postcodes.io/postcodes"
     postcodes = {"postcodes": postcodes}
     result = req.post(url, timeout=30, json=postcodes)
