@@ -21,13 +21,11 @@ def save_cache(cache: dict):
 
 def validate_postcode(postcode: str) -> bool:
     """Validates a given postcode."""
-    postcode = postcode.replace(" ", "")
     if not isinstance(postcode, str):
-        raise TypeError("Postcode must be a string!")
-    if len(postcode) not in range(5, 8):
-        raise ValueError(
-            "Postcode of valid length (5-7 characters.)")
-    return True
+        raise TypeError('Postcode must be a string.')
+    else:
+        postcode = postcode.replace(" ", "")
+        return True
 
 
 def get_postcode_for_location(lat: float, long: float) -> str:
@@ -46,6 +44,8 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
     Returns a list of postcodes the user may have wanted to
     use, given the starting letters of a postcode.
     """
+    if not isinstance(postcode_start, str):
+        raise TypeError('You must enter a string.')
     url = f"https://api.postcodes.io/postcodes/{postcode_start}/autocomplete"
     result = req.get(url, timeout=15)
     data = result.json()['result']
@@ -58,6 +58,8 @@ def get_postcodes_details(postcodes: list[str]) -> dict:
     the postcodes within the inputted list of postcodes, followed
     by details for that given postcode.
     """
+    if not isinstance(postcodes, list):
+        raise TypeError("Postcodes must be a list.")
     url = f"https://api.postcodes.io/{postcodes}"
     result = req.get(url, timeout=30)
     data = result.json()['result']
@@ -66,4 +68,4 @@ def get_postcodes_details(postcodes: list[str]) -> dict:
 
 if __name__ == "__main__":
     example_postcode = get_postcode_for_location(51.507, 0.127)
-    print(validate_postcode(example_postcode))
+    print(type(get_postcodes_details(['SO17 7GL'])))
