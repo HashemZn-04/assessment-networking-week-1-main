@@ -21,16 +21,24 @@ def save_cache(cache: dict):
 
 def validate_postcode(postcode: str) -> bool:
     """Validates a given postcode."""
+    postcode = postcode.replace(" ", "")
     if not isinstance(postcode, str):
-        raise TypeError("You must enter a string!")
+        raise TypeError("Postcode must be a string!")
     if len(postcode) not in range(5, 8):
         raise ValueError(
-            "You must enter a postcode of valid length (5-7 characters.)")
+            "Postcode of valid length (5-7 characters.)")
     return True
 
 
 def get_postcode_for_location(lat: float, long: float) -> str:
-    pass
+    """
+    Retrieves a postcode nearest to the given coordinates of 
+    latitude and longitude.
+    """
+    url = f"https://api.postcodes.io/postcodes?lon={long}&lat={lat}"
+    result = req.get(url, timeout=15)
+    data = result.json()['result']
+    return data[0]['postcode']
 
 
 def get_postcode_completions(postcode_start: str) -> list[str]:
@@ -39,3 +47,8 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
 
 def get_postcodes_details(postcodes: list[str]) -> dict:
     pass
+
+
+if __name__ == "__main__":
+    example_postcode = get_postcode_for_location(51.507, 0.127)
+    print(validate_postcode(example_postcode))
