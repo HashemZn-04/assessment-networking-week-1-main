@@ -23,10 +23,11 @@ if __name__ == "__main__":
             print(f"{args.postcode} is not a valid postcode.")
     elif args.mode == "complete":
         codes = get_postcode_completions(args.postcode)
-        if len(codes) == 0:
+        if codes is None or len(codes) == 0:
             print(f"No matches for {args.postcode}.")
-        counter = 0
-        for i in range(len(codes)):
-            if counter < 5:
-                print(f"{codes[i]}")
-                counter += 1
+        else:
+            counter = 0
+            for i in range(len(codes)):
+                if counter < 5:
+                    print(f"{codes[i]}")
+                    counter += 1
