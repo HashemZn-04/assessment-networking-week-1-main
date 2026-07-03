@@ -38,7 +38,13 @@ def get_postcode_for_location(lat: float, long: float) -> str:
     if not isinstance(lat, float) or not isinstance(long, float):
         raise TypeError("Function expects two floats.")
     url = f"https://api.postcodes.io/postcodes?lon={long}&lat={lat}"
-    result = req.get(url, timeout=15)
+    try:
+        result = req.get(url, timeout=15)
+        result.raise_for_status()
+    except req.exceptions.HTTPError as e:
+        status = e.response.status_code
+        if 500 <= status < 600:
+            raise req.RequestException('Unable to access API.')
     data = result.json()['result']
     return data[0]['postcode']
 
@@ -51,7 +57,13 @@ def get_postcode_completions(postcode_start: str) -> list[str]:
     if not isinstance(postcode_start, str):
         raise TypeError('Function expects a string.')
     url = f"https://api.postcodes.io/postcodes/{postcode_start}/autocomplete"
-    result = req.get(url, timeout=15)
+    try:
+        result = req.get(url, timeout=15)
+        result.raise_for_status()
+    except req.exceptions.HTTPError as e:
+        status = e.response.status_code
+        if 500 <= status < 600:
+            raise req.RequestException('Unable to access API.')
     data = result.json()['result']
     return data
 
@@ -69,7 +81,13 @@ def get_postcodes_details(postcodes: list[str]) -> dict:
             raise TypeError("Function expects a list of strings.")
     url = f"https://api.postcodes.io/postcodes"
     postcodes = {"postcodes": postcodes}
-    result = req.post(url, timeout=30, json=postcodes)
+    try:
+        result = req.post(url, timeout=15)
+        result.raise_for_status()
+    except req.exceptions.HTTPError as e:
+        status = e.response.status_code
+        if 500 <= status < 600:
+            raise req.RequestException('Unable to access API.')
     data = result.json()
     return data
 
