@@ -23,11 +23,15 @@ def validate_postcode(postcode: str) -> bool:
     """Validates a given postcode."""
     if not isinstance(postcode, str):
         raise TypeError('Function expects a string.')
-    elif len(postcode) not in range(5, 8):
-        return False
-
-    postcode = postcode.replace(" ", "")
-    return True
+    url = f"https://api.postcodes.io/postcodes/{postcode}/validate"
+    try:
+        result = req.get(url, timeout=15)
+        result.raise_for_status()
+    except req.exceptions.HTTPError as e:
+        status = e.response.status_code
+        if 500 <= status < 600:
+            raise req.RequestException('Unable to access API.')
+    return result.json()['result']
 
 
 def get_postcode_for_location(lat: float, long: float) -> str:
@@ -46,6 +50,8 @@ def get_postcode_for_location(lat: float, long: float) -> str:
         if 500 <= status < 600:
             raise req.RequestException('Unable to access API.')
     data = result.json()['result']
+    if data is None:
+        raise ValueError("No relevant postcode found.")
     return data[0]['postcode']
 
 
@@ -88,7 +94,7 @@ def get_postcodes_details(postcodes: list[str]) -> dict:
         status = e.response.status_code
         if 500 <= status < 600:
             raise req.RequestException('Unable to access API.')
-    data = result.json()
+    data = result.json()['result']
     return data
 
 
