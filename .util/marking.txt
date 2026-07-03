@@ -9,7 +9,7 @@ test_postcode_cli.py FFF.FFFFFFFFFFFFFFFFFFFFF.F.....                    [ 49%]
 test_postcode_functions.py FFFFFF....FFFFFFFFFF.F.FFFFF.F.FFFFFFFFFFF.FF [ 98%]
 F                                                                        [100%]
 
-======================== 75 failed, 16 passed in 2.17s =========================
+======================== 75 failed, 16 passed in 2.14s =========================
 ************* Module postcode_cli
 postcode_cli.py:7:0: C0304: Final newline missing (missing-final-newline)
 postcode_cli.py:3:0: W0611: Unused ArgumentParser imported from argparse (unused-import)
@@ -18,11 +18,12 @@ postcode_functions.py:13:4: W2301: Unnecessary ellipsis constant (unnecessary-el
 postcode_functions.py:19:4: W2301: Unnecessary ellipsis constant (unnecessary-ellipsis)
 postcode_functions.py:16:15: W0613: Unused argument 'cache' (unused-argument)
 postcode_functions.py:24:4: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+postcode_functions.py:63:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
 postcode_functions.py:4:0: C0411: standard import "os" should be placed before third party import "requests" (wrong-import-order)
 postcode_functions.py:5:0: C0411: standard import "json" should be placed before third party import "requests" (wrong-import-order)
 postcode_functions.py:4:0: W0611: Unused import os (unused-import)
 postcode_functions.py:5:0: W0611: Unused import json (unused-import)
 
 ------------------------------------------------------------------
-Your code has been rated at 7.44/10 (previous run: 7.44/10, +0.00)
+Your code has been rated at 7.18/10 (previous run: 7.18/10, +0.00)
 
