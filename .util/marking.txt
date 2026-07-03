@@ -9,18 +9,10 @@ test_postcode_cli.py ................................                    [ 49%]
 test_postcode_functions.py ............................................. [ 98%]
 .                                                                        [100%]
 
-============================== 91 passed in 5.95s ==============================
+============================== 91 passed in 6.22s ==============================
 ************* Module postcode_cli
-postcode_cli.py:9:4: W0107: Unnecessary pass statement (unnecessary-pass)
-postcode_cli.py:31:12: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-************* Module postcode_functions
-postcode_functions.py:22:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
-postcode_functions.py:31:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-postcode_functions.py:76:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-postcode_functions.py:104:10: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
-postcode_functions.py:4:0: C0411: standard import "os" should be placed before third party import "requests" (wrong-import-order)
-postcode_functions.py:5:0: C0411: standard import "json" should be placed before third party import "requests" (wrong-import-order)
+postcode_cli.py:25:12: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.24/10 (previous run: 9.24/10, +0.00)
+Your code has been rated at 9.90/10 (previous run: 9.90/10, +0.00)
 
