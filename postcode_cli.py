@@ -3,12 +3,6 @@
 from argparse import ArgumentParser
 from postcode_functions import get_postcode_completions, validate_postcode
 
-
-def parser_args():
-    """Returns arguments required by the README.md."""
-    pass
-
-
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument(
