@@ -28,7 +28,7 @@ def validate_postcode(postcode: str) -> bool:
     if not isinstance(postcode, str):
         raise TypeError('Function expects a string.')
     cache = load_cache()
-    if postcode in cache and 'valid' in cache['postcode']:
+    if postcode in cache and 'valid' in cache[postcode]:
         return cache[postcode]['valid']
     else:
         url = f"https://api.postcodes.io/postcodes/{postcode}/validate"
